@@ -1,0 +1,149 @@
+package com.company;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        ArrayList<Inventory> inventoryItems =new ArrayList<>();
+        ConvenienceStoreItem storeItem = new ConvenienceStoreItem("Red-Hot Spicy Doritos", 2.99);
+        Inventory item = new Inventory (storeItem, 10);
+        inventoryItems.add(item);
+
+        storeItem = new ConvenienceStoreItem("Cool Ranch Doritos", 2.99);
+        item = new Inventory(storeItem, 10);
+        inventoryItems.add(item);
+
+
+        storeItem = new ConvenienceStoreItem("Coke", 0.99);
+        item = new Inventory(storeItem, 10);
+        inventoryItems.add(item);
+
+
+        storeItem = new ConvenienceStoreItem("Diet Coke", 0.99);
+        item = new Inventory(storeItem, 7);
+        inventoryItems.add(item);
+
+
+        storeItem = new ConvenienceStoreItem("Pepsi", 0.99);
+        item = new Inventory(storeItem, 10);
+        inventoryItems.add(item);
+
+
+        storeItem = new ConvenienceStoreItem("Five Hour Energy", 3.99);
+        item = new Inventory(storeItem, 15);
+        inventoryItems.add(item);
+
+
+        storeItem = new ConvenienceStoreItem("Sunflower Seeds", 0.99);
+        item = new Inventory(storeItem, 8);
+        inventoryItems.add(item);
+
+
+        storeItem = new ConvenienceStoreItem("Peanuts", 0.99);
+        item = new Inventory(storeItem, 8);
+        inventoryItems.add(item);
+
+
+        storeItem = new ConvenienceStoreItem("Mac Book Charger", 120.00);
+        item = new Inventory(storeItem, 5);
+        inventoryItems.add(item);
+
+        storeItem = new ConvenienceStoreItem("Dell Charger", 50.00);
+        item = new Inventory(storeItem, 5);
+        inventoryItems.add(item);
+
+        Scanner input = new Scanner(System.in);
+        String answer = " ";
+        ArrayList<ConvenienceStoreReceipt> AllReceipts =new ArrayList<>();
+        ConvenienceStoreReceipt customerReceipt;
+        String name = "";
+        ArrayList<ConvenienceStoreItem> customerPurchasedItems= new ArrayList<ConvenienceStoreItem>();;
+        String decision = "";
+        double totalAmount = 0.0;
+        int hoursOpen = 0;
+        double grandTotal = 0.0;
+
+        do
+        {
+            System.out.println("______________________________________________");
+            System.out.println("Welcome to the COBIS Convenience Store.");
+            System.out.println("Hours of Operations: 11:00 A.M. - 4:00 P.M.");
+            System.out.println("Due to COVID-19 we can only service one customer at the top of each hour. We are sorry for the inconvenience. ");
+            System.out.println("Lets get started, what is your name?");
+            name = input.nextLine();
+            System.out.println("Hi " + name);
+            do
+            {
+
+
+                System.out.println("What would you like to purchase?");
+                for (int i = 0; i < inventoryItems.size (); i++)
+                {
+                    if (inventoryItems.get(i).getAmount() > 0)
+                        System.out.println(inventoryItems.get(i).getConvenienceStoreItem().getItemName() + "-  $" + inventoryItems.get(i).getConvenienceStoreItem().getPrice());
+
+                }
+                answer = input.nextLine();
+                for (int i = 0; i < inventoryItems.size (); i++)
+                {
+                    if (inventoryItems.get(i).getConvenienceStoreItem().getItemName().equals(answer) && inventoryItems.get(i).getAmount() > 0)
+                    {
+                        customerPurchasedItems.add(inventoryItems.get(i).getConvenienceStoreItem());
+                        inventoryItems.get(i).setAmount(inventoryItems.get(i).getAmount()-1);
+                        System.out.println("This item has been added to your cart!");
+                        i = inventoryItems.size() -1;
+                    }
+                    else if (!(inventoryItems.get(i).getConvenienceStoreItem().getItemName().equals(answer)) && (i == inventoryItems.size() - 1))
+                    {
+                        System.out.println("Sorry, we don't sell this item. Be sure to choose an item from the list");
+                    }
+                }
+                System.out.println("Would you like to add another item? Please enter Yes or No");
+                decision = input.nextLine();
+
+            } while(decision.equals("Yes"));
+
+            customerReceipt = new ConvenienceStoreReceipt( name, customerPurchasedItems);
+            System.out.println (customerReceipt.getCustomerName());
+            for (int i = 0; i < customerReceipt.getConvenienceStoreItemList().size (); i++)
+            {
+                System.out.println (customerReceipt.getConvenienceStoreItemList().get(i).getItemName() + "-  $" + customerReceipt.getConvenienceStoreItemList().get(i).getPrice());
+                totalAmount = totalAmount + customerReceipt.getConvenienceStoreItemList().get(i).getPrice();
+
+            }
+            System.out.println ("Total amount: $" + totalAmount);
+            AllReceipts.add(customerReceipt);
+            totalAmount = 0;
+            hoursOpen = hoursOpen + 1;
+            customerPurchasedItems.clear();
+
+        }while(hoursOpen <= 2);
+        System.out.println("______________________________________________");
+        System.out.println("It's closing time!");
+        System.out.println ("Closing Receipts:");
+        for (int i = 0; i < AllReceipts.size (); i++)
+        {
+
+            System.out.println(AllReceipts.get(i).getCustomerName());
+            for (int j = 0; j < AllReceipts.get(i).getConvenienceStoreItemList().size (); j++)
+            {
+                System.out.println (AllReceipts.get(i).getConvenienceStoreItemList().get(j).getItemName() + "-  $" + AllReceipts.get(i).getConvenienceStoreItemList().get(j).getPrice());
+                totalAmount = totalAmount + AllReceipts.get(i).getConvenienceStoreItemList().get(i).getPrice();
+
+            }
+
+            System.out.println ("Total amount: $" + totalAmount);
+            grandTotal = grandTotal + totalAmount;
+            totalAmount = 0;
+        }
+        System.out.println("_______________________________");
+        System.out.println ("Inventory Sold:");
+
+        System.out.println("_______________________________");
+        System.out.println("Grand Total: $" + grandTotal);
+
+    }
+
+}
