@@ -1,0 +1,30 @@
+package com.company;
+
+public class ConvenienceStoreItem
+{
+    public String getItemName() {
+        return ItemName;
+    }
+
+    public void setItemName(String itemName) {
+        ItemName = itemName;
+    }
+
+    public double getPrice() {
+        return Price;
+    }
+
+    public void setPrice(double price) {
+        Price = price;
+    }
+
+    private String ItemName;
+    private double Price;
+
+    public ConvenienceStoreItem(String ItemName, double Price)
+    {
+        this.ItemName = ItemName;
+        this.Price = Price;
+    }
+
+}
