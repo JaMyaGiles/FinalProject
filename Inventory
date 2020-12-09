@@ -1,0 +1,31 @@
+package com.company;
+
+public class Inventory {
+
+    public ConvenienceStoreItem getConvenienceStoreItem() {
+        return convenienceStoreItem;
+    }
+
+    public void setConvenienceStoreItem(ConvenienceStoreItem convenienceStoreItem) {
+        this.convenienceStoreItem = convenienceStoreItem;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    private ConvenienceStoreItem convenienceStoreItem;
+    private int amount;
+
+    public Inventory(ConvenienceStoreItem cst, int amount)
+    {
+        convenienceStoreItem = cst;
+        this.amount = amount;
+    }
+
+
+}
