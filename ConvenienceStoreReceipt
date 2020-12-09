@@ -1,0 +1,31 @@
+package com.company;
+import java.util.ArrayList;
+
+public class ConvenienceStoreReceipt
+{
+    public String getCustomerName() {
+        return CustomerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        CustomerName = customerName;
+    }
+
+    public ArrayList<ConvenienceStoreItem> getConvenienceStoreItemList() {
+        return ConvenienceStoreItemList;
+    }
+
+    public void setConvenienceStoreItemList(ArrayList<ConvenienceStoreItem> convenienceStoreItemList) {
+        ConvenienceStoreItemList = convenienceStoreItemList;
+    }
+
+    private String CustomerName;
+    ArrayList<ConvenienceStoreItem> ConvenienceStoreItemList;
+
+    public ConvenienceStoreReceipt(String CustomerName, ArrayList <ConvenienceStoreItem> ConvenienceStoreItemList )
+    {
+        this.CustomerName = CustomerName;
+        this.ConvenienceStoreItemList = new ArrayList<ConvenienceStoreItem>(ConvenienceStoreItemList);
+    }
+
+}
